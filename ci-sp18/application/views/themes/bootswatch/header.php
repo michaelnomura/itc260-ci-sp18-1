@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title><?=$this->config->item('title')?></title>
+	<title><?=$title?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--Bootstrap themes use style settings to change look and feel -->
     <link rel="stylesheet" href="<?=base_url()?>public/themes/bootswatch/css/<?=$this->config->item('style')?>" media="screen">
@@ -15,7 +15,7 @@
      <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="<?=base_url()?>" class="navbar-brand"><?=$this->config->item('banner')?></a>
+          <a href="<?=base_url()?>" class="navbar-brand"><?=$title?></a>
 		    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -25,7 +25,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
 			<li class="active"><a href="#" title="">Active Link</a></li>
-			<li><?=anchor('news/create','Create News')?></li>
+			
 			<li><?=anchor('news','Show News')?></li>
           </ul>
         </div>
