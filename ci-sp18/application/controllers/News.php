@@ -14,9 +14,8 @@ class News extends CI_Controller {
         $data['news'] = $this->news_model->get_news();
         $data['title'] = 'News archive';
 
-        //$this->load->view('templates/header', $data);
         $this->load->view('news/index', $data);
-        //$this->load->view('templates/footer', $data);
+
     }
 
     public function view($slug = NULL)
@@ -25,14 +24,14 @@ class News extends CI_Controller {
 
         if (empty($data['news_item']))
         {
-                show_404();
+            show_404();
         }
 
         $data['title'] = $data['news_item']['title'];
 
-        //$this->load->view('templates/header', $data);
+
         $this->load->view('news/view', $data);
-        //$this->load->view('templates/footer');
+
     }//end of view
     
     public function create()
@@ -46,18 +45,26 @@ class News extends CI_Controller {
         $this->form_validation->set_rules('text', 'Text', 'required');
 
         if ($this->form_validation->run() === FALSE)
-        {
-            //$this->load->view('templates/header', $data);
-            $this->load->view('news/create', $data);
-            //$this->load->view('templates/footer', $data);
+        {//if form is not complete
 
-        }
-        else
-        {
-            $this->news_model->set_news();
-            $this->load->view('templates/header', $data);
-            $this->load->view('news/success');
-            $this->load->view('templates/footer', $data);
+            $this->load->view('news/create', $data);
+        }else{//if form is complete
+            //$this->news_model->set_news();
+            
+            $slug = $this->news_model->set_news();
+            
+            if($slug!==false)
+            {//data has been entered show page
+                feedback('News item successfully entered!','info');
+                redirect('/news/view/' . $slug);
+            }else{//problem show warning
+                feedback('News item not created!','error');
+                redirect('/news/create');
+            }
+            
+
+            //$this->load->view('news/success');
+
         }
     }
     

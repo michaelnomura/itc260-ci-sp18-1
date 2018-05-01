@@ -21,18 +21,26 @@ class News_model extends CI_Model {
     
     public function set_news()
     {
-    $this->load->helper('url');
+        //load helper
+        $this->load->helper('url');
+        //create slug
+        $slug = url_title($this->input->post('title'), 'dash', TRUE);
+        //add data to $data
+        $data = array(
+            'title' => $this->input->post('title'),
+            'slug' => $slug,
+            'text' => $this->input->post('text')
+        );
 
-    $slug = url_title($this->input->post('title'), 'dash', TRUE);
-
-    $data = array(
-        'title' => $this->input->post('title'),
-        'slug' => $slug,
-        'text' => $this->input->post('text')
-    );
-
-    return $this->db->insert('sp18_news', $data);
-    }
+        //return $this->db->insert('sp18_news', $data);
+        //put $data into array
+        if($this->db->insert('sp18_news', $data))
+        {//data inserted, pass back slug
+            return $slug;
+        }else{//data not inserted, pass back warning
+            return false;
+        }
+    }//end set_news()
     
     
 }//end News_model
